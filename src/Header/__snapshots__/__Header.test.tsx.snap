@@ -1,0 +1,269 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header auth render 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <nav>
+    <div>
+        fcc-voting
+    </div>
+    <div>
+        HOME
+    </div>
+    <section>
+        <div>
+            My Polls
+        </div>
+        <div>
+            New Poll
+        </div>
+        <div
+            id="sign"
+        >
+            hyc
+        </div>
+    </section>
+</nav>,
+  "nodes": Array [
+    <nav>
+      <div>
+            fcc-voting
+      </div>
+      <div>
+            HOME
+      </div>
+      <section>
+            <div>
+                  My Polls
+            </div>
+            <div>
+                  New Poll
+            </div>
+            <div
+                  id="sign"
+            >
+                  hyc
+            </div>
+      </section>
+</nav>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_calledComponentWillUnmount": false,
+      "_compositeType": 0,
+      "_context": Object {},
+      "_currentElement": <Header />,
+      "_debugID": 3,
+      "_hostContainerInfo": null,
+      "_hostParent": null,
+      "_instance": Header {
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "props": Object {},
+        "refs": Object {},
+        "renderAuthDiv": [Function],
+        "renderAuthed": [Function],
+        "renderUnAuth": [Function],
+        "state": Object {
+          "user": Object {
+            "username": "hyc",
+          },
+        },
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+          "validateCallback": [Function],
+        },
+      },
+      "_mountOrder": 2,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": NoopInternalComponent {
+        "_currentElement": <nav>
+          <div>
+                    fcc-voting
+          </div>
+          <div>
+                    HOME
+          </div>
+          <section>
+                    <div>
+                              My Polls
+                    </div>
+                    <div>
+                              New Poll
+                    </div>
+                    <div
+                              id="sign"
+                    >
+                              hyc
+                    </div>
+          </section>
+</nav>,
+        "_debugID": 4,
+        "_renderedOutput": <nav>
+          <div>
+                    fcc-voting
+          </div>
+          <div>
+                    HOME
+          </div>
+          <section>
+                    <div>
+                              My Polls
+                    </div>
+                    <div>
+                              New Poll
+                    </div>
+                    <div
+                              id="sign"
+                    >
+                              hyc
+                    </div>
+          </section>
+</nav>,
+      },
+      "_renderedNodeType": 0,
+      "_rootNodeID": 0,
+      "_topLevelWrapper": null,
+      "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <Header />,
+}
+`;
+
+exports[`Header unauth render 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <nav>
+    <div>
+        fcc-voting
+    </div>
+    <div>
+        HOME
+    </div>
+    <div
+        id="sign"
+    >
+        Sign in/up
+    </div>
+</nav>,
+  "nodes": Array [
+    <nav>
+      <div>
+            fcc-voting
+      </div>
+      <div>
+            HOME
+      </div>
+      <div
+            id="sign"
+      >
+            Sign in/up
+      </div>
+</nav>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_calledComponentWillUnmount": false,
+      "_compositeType": 0,
+      "_context": Object {},
+      "_currentElement": <Header />,
+      "_debugID": 1,
+      "_hostContainerInfo": null,
+      "_hostParent": null,
+      "_instance": Header {
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "props": Object {},
+        "refs": Object {},
+        "renderAuthDiv": [Function],
+        "renderAuthed": [Function],
+        "renderUnAuth": [Function],
+        "state": Object {
+          "user": undefined,
+        },
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+          "validateCallback": [Function],
+        },
+      },
+      "_mountOrder": 1,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": NoopInternalComponent {
+        "_currentElement": <nav>
+          <div>
+                    fcc-voting
+          </div>
+          <div>
+                    HOME
+          </div>
+          <div
+                    id="sign"
+          >
+                    Sign in/up
+          </div>
+</nav>,
+        "_debugID": 2,
+        "_renderedOutput": <nav>
+          <div>
+                    fcc-voting
+          </div>
+          <div>
+                    HOME
+          </div>
+          <div
+                    id="sign"
+          >
+                    Sign in/up
+          </div>
+</nav>,
+      },
+      "_renderedNodeType": 0,
+      "_rootNodeID": 0,
+      "_topLevelWrapper": null,
+      "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <Header />,
+}
+`;
