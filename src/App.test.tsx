@@ -9,8 +9,6 @@ describe("App",()=>{
 
   });
 
-  it('render header bar ',()=>{
-     //
-  })
+
 
 })

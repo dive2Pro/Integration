@@ -2,14 +2,15 @@
  *
  */
 import * as React from 'react'
-import * as Cookies from 'js-cookie';
+const  Cookies =require( 'js-cookie')
+
 
 interface IHeaderState {
     user: { username: string } | undefined
 }
 
 
-export const fetchSomething=()=> fetch("/")
+export const fetchSomething=()=> fetch("/api/auth")
 
 export default class Header extends React.Component<{}, IHeaderState> {
     state = {user:undefined}
@@ -25,7 +26,12 @@ export default class Header extends React.Component<{}, IHeaderState> {
     }
 
     componentDidMount(){
-
+       fetchSomething()
+           .then(data=>{
+               console.log(data.json())
+           }).catch(err=>{
+           console.error('err',err)
+       })
     }
     renderAuthDiv = (text: string) => {
 
