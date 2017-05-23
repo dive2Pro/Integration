@@ -14,6 +14,9 @@ jest.mock('./Header',()=>{
 
  describe("Header",()=>{
      const cookieName = 'auth'
+     const t = ()=>{
+
+     }
      beforeEach(()=>{
          const fc:any  =fetch
          fc.mockResponseOnce(
@@ -26,7 +29,7 @@ jest.mock('./Header',()=>{
      it('unauth render',()=>{
          // cookie
          Cookie.remove(cookieName)
-         let  wrapper=shallow(<Header/>)
+         let  wrapper=shallow(<Header  toggleLogin={t}/>)
          expect(wrapper).toMatchSnapshot()
          expect(wrapper.find('div').length).toEqual(3)
          const signText = wrapper.find('#sign').text()
@@ -39,7 +42,7 @@ jest.mock('./Header',()=>{
          }
 
          Cookie.set(cookieName,user)
-         let  wrapper=shallow(<Header/>)
+         let  wrapper=shallow(<Header toggleLogin={t}/>)
          expect(wrapper).toMatchSnapshot()
          expect(wrapper.find('div').length).toEqual(5)
          const signText = wrapper.find('#sign').text()
@@ -50,6 +53,11 @@ jest.mock('./Header',()=>{
          ])).toBeTruthy()
      })
 
-     it('')
+     it('auth click',()=>{
+         const  wrapper=shallow(<Header toggleLogin={t}/>)
+         wrapper.find('#sign').simulate('click')
+         expect(wrapper).toMatchSnapshot()
+
+     })
 
  })

@@ -1,21 +1,51 @@
 import * as React from 'react';
 import './App.css';
-
 import Header from './Header'
-class App extends React.Component<{}, null> {
+import Login from './Login'
+interface IAppState{
+    toggle:{
+        islogin_open:boolean,
+
+    }
+}
+
+
+
+class App extends React.Component<{}, IAppState> {
+
+    state={
+        toggle:{
+            islogin_open:false
+        }
+    }
+
+    handleToggleLogin=()=>{
+        this.setState((prevState, props) => {
+          const toggled = !prevState.toggle.islogin_open
+            return {
+                toggle:{
+                    ...prevState.toggle, islogin_open:toggled}
+        }
+        })
+    }
+
+
+
 
   render() {
+
     return (
       <div className="App">
         <div className="App-header">
-            <Header/>
+            <Header
+            toggleLogin={this.handleToggleLogin}
+            />
           </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
+          <Login isShowing={this.state.toggle.islogin_open}/>
       </div>
     );
   }
+
 }
 
 export default App;

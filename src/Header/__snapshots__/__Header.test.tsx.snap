@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header auth render 1`] = `
+exports[`Header auth click 1`] = `
 ShallowWrapper {
   "complexSelector": ComplexSelector {
     "buildPredicate": [Function],
@@ -8,14 +8,14 @@ ShallowWrapper {
     "findWhereUnwrapped": [Function],
   },
   "length": 1,
-  "node": <nav>
+  "node": <styled.nav>
     <div>
         fcc-voting
     </div>
     <div>
         HOME
     </div>
-    <section>
+    <styled.section>
         <div>
             My Polls
         </div>
@@ -24,20 +24,21 @@ ShallowWrapper {
         </div>
         <div
             id="sign"
+            onClick={[Function]}
         >
             hyc
         </div>
-    </section>
-</nav>,
+    </styled.section>
+</styled.nav>,
   "nodes": Array [
-    <nav>
+    <styled.nav>
       <div>
             fcc-voting
       </div>
       <div>
             HOME
       </div>
-      <section>
+      <styled.section>
             <div>
                   My Polls
             </div>
@@ -46,11 +47,12 @@ ShallowWrapper {
             </div>
             <div
                   id="sign"
+                  onClick={[Function]}
             >
                   hyc
             </div>
-      </section>
-</nav>,
+      </styled.section>
+</styled.nav>,
   ],
   "options": Object {},
   "renderer": ReactShallowRenderer {
@@ -58,14 +60,181 @@ ShallowWrapper {
       "_calledComponentWillUnmount": false,
       "_compositeType": 0,
       "_context": Object {},
-      "_currentElement": <Header />,
+      "_currentElement": <Header
+        toggleLogin={[Function]}
+/>,
+      "_debugID": 5,
+      "_hostContainerInfo": null,
+      "_hostParent": null,
+      "_instance": Header {
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "handlerClickAuth": [Function],
+        "props": Object {
+          "toggleLogin": [Function],
+        },
+        "refs": Object {},
+        "renderAuthDiv": [Function],
+        "renderAuthed": [Function],
+        "renderUnAuth": [Function],
+        "state": Object {
+          "user": Object {
+            "username": "hyc",
+          },
+        },
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+          "validateCallback": [Function],
+        },
+      },
+      "_mountOrder": 3,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": NoopInternalComponent {
+        "_currentElement": <styled.nav>
+          <div>
+                    fcc-voting
+          </div>
+          <div>
+                    HOME
+          </div>
+          <styled.section>
+                    <div>
+                              My Polls
+                    </div>
+                    <div>
+                              New Poll
+                    </div>
+                    <div
+                              id="sign"
+                              onClick={[Function]}
+                    >
+                              hyc
+                    </div>
+          </styled.section>
+</styled.nav>,
+        "_debugID": 6,
+        "_renderedOutput": <styled.nav>
+          <div>
+                    fcc-voting
+          </div>
+          <div>
+                    HOME
+          </div>
+          <styled.section>
+                    <div>
+                              My Polls
+                    </div>
+                    <div>
+                              New Poll
+                    </div>
+                    <div
+                              id="sign"
+                              onClick={[Function]}
+                    >
+                              hyc
+                    </div>
+          </styled.section>
+</styled.nav>,
+      },
+      "_renderedNodeType": 1,
+      "_rootNodeID": 0,
+      "_topLevelWrapper": null,
+      "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <Header
+    toggleLogin={[Function]}
+/>,
+}
+`;
+
+exports[`Header auth render 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <styled.nav>
+    <div>
+        fcc-voting
+    </div>
+    <div>
+        HOME
+    </div>
+    <styled.section>
+        <div>
+            My Polls
+        </div>
+        <div>
+            New Poll
+        </div>
+        <div
+            id="sign"
+            onClick={[Function]}
+        >
+            hyc
+        </div>
+    </styled.section>
+</styled.nav>,
+  "nodes": Array [
+    <styled.nav>
+      <div>
+            fcc-voting
+      </div>
+      <div>
+            HOME
+      </div>
+      <styled.section>
+            <div>
+                  My Polls
+            </div>
+            <div>
+                  New Poll
+            </div>
+            <div
+                  id="sign"
+                  onClick={[Function]}
+            >
+                  hyc
+            </div>
+      </styled.section>
+</styled.nav>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_calledComponentWillUnmount": false,
+      "_compositeType": 0,
+      "_context": Object {},
+      "_currentElement": <Header
+        toggleLogin={[Function]}
+/>,
       "_debugID": 3,
       "_hostContainerInfo": null,
       "_hostParent": null,
       "_instance": Header {
         "_reactInternalInstance": [Circular],
         "context": Object {},
-        "props": Object {},
+        "handlerClickAuth": [Function],
+        "props": Object {
+          "toggleLogin": [Function],
+        },
         "refs": Object {},
         "renderAuthDiv": [Function],
         "renderAuthed": [Function],
@@ -93,14 +262,14 @@ ShallowWrapper {
       "_pendingReplaceState": false,
       "_pendingStateQueue": null,
       "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <nav>
+        "_currentElement": <styled.nav>
           <div>
                     fcc-voting
           </div>
           <div>
                     HOME
           </div>
-          <section>
+          <styled.section>
                     <div>
                               My Polls
                     </div>
@@ -109,20 +278,21 @@ ShallowWrapper {
                     </div>
                     <div
                               id="sign"
+                              onClick={[Function]}
                     >
                               hyc
                     </div>
-          </section>
-</nav>,
+          </styled.section>
+</styled.nav>,
         "_debugID": 4,
-        "_renderedOutput": <nav>
+        "_renderedOutput": <styled.nav>
           <div>
                     fcc-voting
           </div>
           <div>
                     HOME
           </div>
-          <section>
+          <styled.section>
                     <div>
                               My Polls
                     </div>
@@ -131,13 +301,14 @@ ShallowWrapper {
                     </div>
                     <div
                               id="sign"
+                              onClick={[Function]}
                     >
                               hyc
                     </div>
-          </section>
-</nav>,
+          </styled.section>
+</styled.nav>,
       },
-      "_renderedNodeType": 0,
+      "_renderedNodeType": 1,
       "_rootNodeID": 0,
       "_topLevelWrapper": null,
       "_updateBatchNumber": null,
@@ -147,7 +318,9 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <Header />,
+  "unrendered": <Header
+    toggleLogin={[Function]}
+/>,
 }
 `;
 
@@ -159,7 +332,7 @@ ShallowWrapper {
     "findWhereUnwrapped": [Function],
   },
   "length": 1,
-  "node": <nav>
+  "node": <styled.nav>
     <div>
         fcc-voting
     </div>
@@ -168,12 +341,13 @@ ShallowWrapper {
     </div>
     <div
         id="sign"
+        onClick={[Function]}
     >
         Sign in/up
     </div>
-</nav>,
+</styled.nav>,
   "nodes": Array [
-    <nav>
+    <styled.nav>
       <div>
             fcc-voting
       </div>
@@ -182,10 +356,11 @@ ShallowWrapper {
       </div>
       <div
             id="sign"
+            onClick={[Function]}
       >
             Sign in/up
       </div>
-</nav>,
+</styled.nav>,
   ],
   "options": Object {},
   "renderer": ReactShallowRenderer {
@@ -193,14 +368,19 @@ ShallowWrapper {
       "_calledComponentWillUnmount": false,
       "_compositeType": 0,
       "_context": Object {},
-      "_currentElement": <Header />,
+      "_currentElement": <Header
+        toggleLogin={[Function]}
+/>,
       "_debugID": 1,
       "_hostContainerInfo": null,
       "_hostParent": null,
       "_instance": Header {
         "_reactInternalInstance": [Circular],
         "context": Object {},
-        "props": Object {},
+        "handlerClickAuth": [Function],
+        "props": Object {
+          "toggleLogin": [Function],
+        },
         "refs": Object {},
         "renderAuthDiv": [Function],
         "renderAuthed": [Function],
@@ -226,7 +406,7 @@ ShallowWrapper {
       "_pendingReplaceState": false,
       "_pendingStateQueue": null,
       "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <nav>
+        "_currentElement": <styled.nav>
           <div>
                     fcc-voting
           </div>
@@ -235,12 +415,13 @@ ShallowWrapper {
           </div>
           <div
                     id="sign"
+                    onClick={[Function]}
           >
                     Sign in/up
           </div>
-</nav>,
+</styled.nav>,
         "_debugID": 2,
-        "_renderedOutput": <nav>
+        "_renderedOutput": <styled.nav>
           <div>
                     fcc-voting
           </div>
@@ -249,12 +430,13 @@ ShallowWrapper {
           </div>
           <div
                     id="sign"
+                    onClick={[Function]}
           >
                     Sign in/up
           </div>
-</nav>,
+</styled.nav>,
       },
-      "_renderedNodeType": 0,
+      "_renderedNodeType": 1,
       "_rootNodeID": 0,
       "_topLevelWrapper": null,
       "_updateBatchNumber": null,
@@ -264,6 +446,8 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <Header />,
+  "unrendered": <Header
+    toggleLogin={[Function]}
+/>,
 }
 `;

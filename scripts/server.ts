@@ -16,12 +16,14 @@ app.use(function(req, res, next) {
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-app.get('/api/auth',(req,res,next)=>{
+
+app.get('/api',(req,res,next)=>{
     res.send({
         title:'Hyc',
         age:'name'
     })
 })
+
 const port = process.env.PORT||2828
 app.listen(port,'localhost',()=>{
     console.log('Listening port : ' + port)
