@@ -3,3 +3,4 @@
  */
 
 declare module  'js-cookie'
+declare module  'bcrypt'
