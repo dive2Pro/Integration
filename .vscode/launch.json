@@ -6,6 +6,18 @@
   "configurations": [
     {
       "type": "node",
+      "request": "launch",
+      "name": "serverTs",
+      "program": "${workspaceRoot}/node_modules/.bin/ts-node",
+      "args": [
+        "./scripts/server.ts"
+      ],
+      "protocol": "inspector",
+      "cwd": "${workspaceRoot}",
+      "port": 2828
+    },
+    {
+      "type": "node",
       "request": "attach",
       "name": "Attach",
       "port": 2828
