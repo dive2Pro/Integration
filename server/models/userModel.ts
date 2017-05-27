@@ -9,7 +9,7 @@ interface IUser {
 
 
 const UserSchema = new mongoose.Schema({
-  username: {type: String, required: true},
+  username: {type: String, required: true, unique: true},
   password: {type: String, required: true}
 });
 
@@ -22,7 +22,19 @@ class User {
   password: string
   // 盐 用来加密密码
   salt: string
-  model: any
+  model: any;
+  static getByName(name, fn) {
+    User.getId(name, (err, id) => {
+
+      if (err) return fn(err);
+
+    })
+  }
+
+  static getId(username, fn) {
+    console.log(username);
+    UserModel.findOne({username}).exec(fn)
+  }
 
   constructor(obj: IUser){
       Object.getOwnPropertyNames(obj).forEach(key => {this[key] = obj[key]})}
@@ -56,11 +68,11 @@ class User {
   update(fn: ErrFn) {
     const user = this;
     const {model, _id} = user
-    console.log(model.findById)
     model.findOneAndUpdate({id: _id}, {user}, function(err, doc) {
       if (err)
         return fn(err);
       else {
+        fn()
       }
     })
   }
@@ -78,5 +90,6 @@ class User {
             })
   }
 }
+
 
 export default User

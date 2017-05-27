@@ -32,7 +32,7 @@ export default class Login extends React.Component<ILoginProps,ILoginState>{
 
         this.setState((prevState, props) => {
             return {
-                type:value
+                [type]:value
             }
         })
     }
@@ -45,10 +45,30 @@ export default class Login extends React.Component<ILoginProps,ILoginState>{
 
     }
 
-    handleConfirm=()=>{
+    handleConfirm=(event)=>{
+        event.preventDefault();
         const isLoginUp = this.state.isLoginUp
         // const {username,password} = this.state
+        const {username,password}=this.state
+        const headers = new Headers()
+        const requestBody=
+            JSON.stringify(
+              {username,password}
+            )
+        const data = new FormData()
+        data.append("json",requestBody)
+        headers.append("Content-Type", "application/json");
+        headers.append("Content-Length", requestBody.toString().length+"");
 
+        fetch('/api/save',{method:"POST",body:requestBody,headers})
+            .then(data=>
+                data.json()
+            )
+            .then(json=>{
+                console.log(json)
+            }).catch(err=>{
+                console.error(err)
+        })
         if(isLoginUp){
 
         }else{
@@ -64,27 +84,35 @@ export default class Login extends React.Component<ILoginProps,ILoginState>{
         }
         return(
             <section style={containerStyle}>
-                <TextField
-                    onChange={this.handleChange('username')}
-                    placeholder="username"
-                    value={username}
-                />
-                <TextField
-                    onChange={this.handleChange('password')}
-                    value={password}
+                <form
+                    onSubmit={this.handleConfirm}
+                    method="POST">
 
-                    placeholder="password" />
+                    <TextField
+                        onChange={this.handleChange('username')}
+                        placeholder="username"
+                        value={username}
+                        name="username"
+                    />
+                    <TextField
+                        onChange={this.handleChange('password')}
+                        value={password}
+                        placeholder="password"
+                        name="password"
+                    />
 
-                <div>
-                    <Button onClick={this.handleChangeLoginMode}>
-                        {isLoginUp?'Login In':'Login Up'}
-                    </Button>
-                    <Button
-                        onClick={this.handleConfirm}
-                    >
-                        confirm
-                    </Button>
-                </div>
+                    <div>
+                        <Button
+                            onClick={this.handleChangeLoginMode}>
+                            {isLoginUp?'Login In':'Login Up'}
+                        </Button>
+                        <Button
+                            type="submit"
+                        >
+                            confirm
+                        </Button>
+                    </div>
+                </form>
             </section>
         )
     }
