@@ -1,13 +1,16 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-const Button = styled.button``
-
-const TextField = styled.input`
-
+const Button = styled.button`
+    color:gray;
+    
 `
 
-interface  ILoginProps {
+const TextField = styled.input`
+    background:red;
+`
+
+interface ILoginProps {
     isShowing: boolean
 }
 
@@ -49,27 +52,27 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
 
         const isLoginUp = this.state.isLoginUp
         // const {username,password} = this.state
-        const {username, password} = this.state
+        const { username, password } = this.state
         const headers = new Headers()
         const requestBody =
             JSON.stringify(
-                {username, password}
+                { username, password }
             )
         const data = new FormData()
         data.append("json", requestBody)
         headers.append("Content-Type", "application/json");
         headers.append("Content-Length", requestBody.toString().length + "");
         const path = this.state.isLoginUp ? "register" : "login"
-        fetch(`/api/${path}`, {method: "POST", body: requestBody, headers})
+        fetch(`/api/${path}`, { method: "POST", body: requestBody, headers })
             .then(data =>
                 data.json()
             )
             .then(json => {
-                this.setState({error: json.err || ""})
+                this.setState({ error: json.err || "" })
 
             }).catch(err => {
-            console.error(err)
-        })
+                console.error(err)
+            })
         if (isLoginUp) {
 
         } else {
@@ -78,9 +81,9 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
     }
 
     render() {
-        const {username, password, isLoginUp} = this.state
+        const { username, password, isLoginUp } = this.state
 
-        const {isShowing} = this.props
+        const { isShowing } = this.props
         const containerStyle = {
             display: isShowing ? 'block' : 'none'
         }

@@ -29,13 +29,24 @@ class User {
         User.getUser(name, (err, user) => {
             if (err || !user)
                 return fn(`username: ${name} does't  exits`)
-         // https://stackoverflow.com/questions/34775687/express-jwt-setting-user-object-to-req-user-doc-instead-of-just-req-user
+            // https://stackoverflow.com/questions/34775687/express-jwt-setting-user-object-to-req-user-doc-instead-of-just-req-user
             fn(null, new User(user.toObject()))
         })
     }
 
-    static getUser(username, fn) {
-        UserModel.findOne({username}).exec(fn)
+    static getUser(obj, fn) {
+        UserModel.findOne({obj}).exec(fn)
+    }
+
+    static getById(id, fn) {
+
+        User.getUser(id, (err, user) => {
+            if (err || !user)
+                return fn(`id: ${name} does't  exits`)
+            // https://stackoverflow.com/questions/34775687/express-jwt-setting-user-object-to-req-user-doc-instead-of-just-req-user
+            fn(null, new User(user.toObject()))
+
+        })
     }
 
     static authenticate(name, psw, fn) {

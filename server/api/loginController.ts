@@ -1,17 +1,19 @@
-import {Express, Router} from 'express';
-import * as mongoose from 'mongoose'
+import {Express, Request, Router} from 'express';
 import * as bodyparser from "body-parser"
 import UserModel from '../models/userModel'
 import * as  session from 'cookie-session'
 
-export default function (app: Express) {
-    const db = mongoose.connection
-    const router = Router()
+declare interface AppRequest extends Request {
+    user: UserModel | null
+}
 
+
+export default function (app: Express) {
+    const router = Router()
     app.use(bodyparser.urlencoded({extended: false}))
     app.use(bodyparser.json())
     app.use('/api', router);
-    var expiryDate = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+    const expiryDate = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
     app.use(session({
             name: 'session',
             keys: ['userId'],
@@ -24,9 +26,10 @@ export default function (app: Express) {
             }
         })
     );
-    // todo middleware to catch the req.body ==null
+
+    // middleware to catch the req.body ==null
     function validReqBody(req, res, next) {
-        if (!req.body) {
+        if (!!req.body===false) {
             res.status(503).send(JSON.stringify({err: "request body can't be null"}))
         } else {
             next()
@@ -38,7 +41,7 @@ export default function (app: Express) {
     router.post('/register', function (req, res) {
             if (req.body) {
                 const {username, password} = req.body
-                UserModel.getByName(username, function (err, user) {
+                UserModel.getByName(username, function (err) {
                     // 不存在
                     if (err) {
                         let user = new UserModel({username, password});
@@ -81,25 +84,21 @@ export default function (app: Express) {
 
     })
 
-    router.post('/save', function (req, res) {
-
-        const {username, password} = req.body
-        const user = new UserModel({username, password})
-
-        user.save(function (err) {
-            if (err) {
-            } else {
-                res.send('asd')
-            }
-        })
+    router.post('/logout', function (req: AppRequest, res) {
+        const user = req.user
+        if (user) {
+            req.user = null
+            req.clearCookie("id")
+        }
+        res.send({code: 200, msg: "login out success"})
 
     })
+
     router.get('/', (req, res) => {
         UserModel.getByName('hyc', function (err) {
             console.log(err)
             res.send('')
         })
     })
-    db;
-    router;
+
 }
