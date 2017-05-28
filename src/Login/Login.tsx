@@ -1,88 +1,90 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-const Button  = styled.button``
+const Button = styled.button``
 
 const TextField = styled.input`
 
 `
 
-interface  ILoginProps{
-    isShowing:boolean
+interface  ILoginProps {
+    isShowing: boolean
 }
 
-interface ILoginState{
-    username:string,
-    password:string,
-    isLoginUp:boolean
+interface ILoginState {
+    username: string,
+    password: string,
+    isLoginUp: boolean,
+    error: string
 }
 
 
+export default class Login extends React.Component<ILoginProps, ILoginState> {
 
-export default class Login extends React.Component<ILoginProps,ILoginState>{
-
-    state={
-        username:'',
-        password:'',
-        isLoginUp:true
+    state = {
+        username: '',
+        password: '',
+        isLoginUp: true,
+        error: ""
     }
 
-    handleChange=(type:string)=>(e:any)=>{
+    handleChange = (type: string) => (e: any) => {
         const value = e.target.value
 
         this.setState((prevState, props) => {
             return {
-                [type]:value
+                [type]: value
             }
         })
     }
 
-    handleChangeLoginMode=()=>{
-
-        this.setState((prevState)=>({
-            isLoginUp:!prevState.isLoginUp
+    handleChangeLoginMode = () => {
+        this.setState((prevState) => ({
+            isLoginUp: !prevState.isLoginUp
         }))
-
     }
 
-    handleConfirm=(event)=>{
+    handleConfirm = (event) => {
         event.preventDefault();
+
         const isLoginUp = this.state.isLoginUp
         // const {username,password} = this.state
-        const {username,password}=this.state
+        const {username, password} = this.state
         const headers = new Headers()
-        const requestBody=
+        const requestBody =
             JSON.stringify(
-              {username,password}
+                {username, password}
             )
         const data = new FormData()
-        data.append("json",requestBody)
+        data.append("json", requestBody)
         headers.append("Content-Type", "application/json");
-        headers.append("Content-Length", requestBody.toString().length+"");
-
-        fetch('/api/save',{method:"POST",body:requestBody,headers})
-            .then(data=>
+        headers.append("Content-Length", requestBody.toString().length + "");
+        const path = this.state.isLoginUp ? "register" : "login"
+        fetch(`/api/${path}`, {method: "POST", body: requestBody, headers})
+            .then(data =>
                 data.json()
             )
-            .then(json=>{
-                console.log(json)
-            }).catch(err=>{
-                console.error(err)
-        })
-        if(isLoginUp){
+            .then(json => {
+                this.setState({error: json.err || ""})
 
-        }else{
+            }).catch(err => {
+            console.error(err)
+        })
+        if (isLoginUp) {
+
+        } else {
 
         }
     }
-    render(){
-        const {username,password,isLoginUp} =this.state
+
+    render() {
+        const {username, password, isLoginUp} = this.state
 
         const {isShowing} = this.props
         const containerStyle = {
-            display:isShowing?'block':'none'
+            display: isShowing ? 'block' : 'none'
         }
-        return(
+        return (
             <section style={containerStyle}>
                 <form
                     onSubmit={this.handleConfirm}
@@ -102,9 +104,12 @@ export default class Login extends React.Component<ILoginProps,ILoginState>{
                     />
 
                     <div>
+                        <p>
+                            {this.state.error}
+                        </p>
                         <Button
                             onClick={this.handleChangeLoginMode}>
-                            {isLoginUp?'Login In':'Login Up'}
+                            {isLoginUp ? 'Login In' : 'Login Up'}
                         </Button>
                         <Button
                             type="submit"
