@@ -6,7 +6,6 @@ import { shallow} from 'enzyme'
 import Header
     from './Header'
 import * as Cookie from 'js-cookie';
-
 jest.mock('./Header',()=>{
 
 })
@@ -29,7 +28,7 @@ jest.mock('./Header',()=>{
      it('unauth render',()=>{
          // cookie
          Cookie.remove(cookieName)
-         let  wrapper=shallow(<Header  toggleLogin={t}/>)
+         let  wrapper=shallow(<Header  toggleLogin={t} user={undefined}/>)
          expect(wrapper).toMatchSnapshot()
          expect(wrapper.find('div').length).toEqual(3)
          const signText = wrapper.find('#sign').text()
@@ -42,7 +41,7 @@ jest.mock('./Header',()=>{
          }
 
          Cookie.set(cookieName,user)
-         let  wrapper=shallow(<Header toggleLogin={t}/>)
+         let  wrapper=shallow(<Header toggleLogin={t} user={{}}/>)
          expect(wrapper).toMatchSnapshot()
          expect(wrapper.find('div').length).toEqual(5)
          const signText = wrapper.find('#sign').text()
@@ -54,7 +53,7 @@ jest.mock('./Header',()=>{
      })
 
      it('auth click',()=>{
-         const  wrapper=shallow(<Header toggleLogin={t}/>)
+         const  wrapper=shallow(<Header toggleLogin={t} user={{}}/>)
          wrapper.find('#sign').simulate('click')
          expect(wrapper).toMatchSnapshot()
 

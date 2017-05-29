@@ -1,24 +1,30 @@
 import * as React from 'react'
 import styled from 'styled-components'
+import Cookies from 'js-cookie'
+import {USER_COOKIE} from '../constants/types'
 
-const Button = styled.button`
-    color:gray;
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+
+const Button = (RaisedButton)
+
+
+const LoginMain = styled.main`
+    margin:auto;
     
 `
 
-const TextField = styled.input`
-    background:red;
-`
-
 interface ILoginProps {
-    isShowing: boolean
+    toggleLogin: () => void
+    user: undefined | {}
+
 }
 
 interface ILoginState {
     username: string,
     password: string,
     isLoginUp: boolean,
-    error: string
+    msg: string,
 }
 
 
@@ -28,7 +34,7 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
         username: '',
         password: '',
         isLoginUp: true,
-        error: ""
+        msg: ""
     }
 
     handleChange = (type: string) => (e: any) => {
@@ -52,27 +58,30 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
 
         const isLoginUp = this.state.isLoginUp
         // const {username,password} = this.state
-        const { username, password } = this.state
+        const {username, password} = this.state
+        const {toggleLogin} = this.props
         const headers = new Headers()
-        const requestBody =
-            JSON.stringify(
-                { username, password }
-            )
-        const data = new FormData()
-        data.append("json", requestBody)
+
+        const requestBody = JSON.stringify({username, password})
+
         headers.append("Content-Type", "application/json");
         headers.append("Content-Length", requestBody.toString().length + "");
         const path = this.state.isLoginUp ? "register" : "login"
-        fetch(`/api/${path}`, { method: "POST", body: requestBody, headers })
+        fetch(`/api/${path}`, {method: "POST", body: requestBody, headers})
             .then(data =>
                 data.json()
             )
             .then(json => {
-                this.setState({ error: json.err || "" })
-
+                if (!json.err) {
+                    throw new Error(json.err)
+                }
+                this.setState({msg: path + " scusses...."})
+                Cookies.set(USER_COOKIE, json)
+                setTimeout(() => toggleLogin(), 500)
             }).catch(err => {
-                console.error(err)
-            })
+            this.setState({msg: err})
+
+        })
         if (isLoginUp) {
 
         } else {
@@ -81,47 +90,44 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
     }
 
     render() {
-        const { username, password, isLoginUp } = this.state
+        const {username, password, isLoginUp} = this.state
 
-        const { isShowing } = this.props
-        const containerStyle = {
-            display: isShowing ? 'block' : 'none'
-        }
         return (
-            <section style={containerStyle}>
+            <LoginMain  >
                 <form
                     onSubmit={this.handleConfirm}
                     method="POST">
 
                     <TextField
                         onChange={this.handleChange('username')}
-                        placeholder="username"
+                        hint="username"
                         value={username}
                         name="username"
-                    />
+                    /><br/>
                     <TextField
                         onChange={this.handleChange('password')}
                         value={password}
-                        placeholder="password"
+                        hint="password"
                         name="password"
                     />
 
                     <div>
                         <p>
-                            {this.state.error}
+                            {this.state.msg}
                         </p>
                         <Button
+                            primary={true}
+                            label={isLoginUp ? 'Login In' : 'Login Up'}
                             onClick={this.handleChangeLoginMode}>
-                            {isLoginUp ? 'Login In' : 'Login Up'}
                         </Button>
                         <Button
+                            primary={true}
                             type="submit"
-                        >
-                            confirm
-                        </Button>
+                            label="confirm"
+                        />
                     </div>
                 </form>
-            </section>
+            </LoginMain>
         )
     }
 }
