@@ -3,8 +3,15 @@
  */
 import * as React from 'react'
 
-import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
+import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 import styled from 'styled-components'
+import RaisedButton from 'material-ui/RaisedButton'
+
+import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
+
+import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton';
+import MenuItem from 'material-ui/MenuItem';
 //
 // const HeaderNav = styled.nav`
 //  display:flex;
@@ -18,50 +25,80 @@ import styled from 'styled-components'
 // `
 
 const AuthSection = styled.section`
+display:flex;
 &>div{
   margin-right:10px;
 }
 `
 
 interface IHeaderState {
+    isMenuOpen: boolean
 }
-interface  IHeaderProps{
-    toggleLogin:()=>void
-    user:undefined|{}
+interface IHeaderProps {
+    toggleLogin: () => void
+    handlerLoginout: () => void
+
+    user: undefined | {}
 }
 
-export const fetchSomething=()=> fetch("/api")
+export const fetchSomething = () => fetch("/api")
 
 export default class Header extends React.Component<IHeaderProps, IHeaderState> {
-    componentDidMount(){
-       fetchSomething()
-           .then(data=>{
-               console.log(data.json())
-           }).catch(err=>{
-           console.error('err',err)
-       })
+    state = { isMenuOpen: false }
+    componentDidMount() {
+        fetchSomething()
+            .then(data => {
+                console.log(data.json())
+            }).catch(err => {
+                console.error('err', err)
+            })
     }
 
-    handlerClickAuth=()=>{
+    handlerClickAuth = () => {
         this.props.toggleLogin();
+    }
+    handlerOpenIconMenu = () => {
+        this.setState(prev => ({
+            isMenuOpen: !prev.isMenuOpen
+        }))
     }
 
     renderAuthDiv = (text: string) => {
+        const { user, handlerLoginout } = this.props
+
+        const isAuthed = !!user
 
         return (
-            <div
-                onClick={this.handlerClickAuth}
-                id="sign">
-                {text}
+            <div>
+                <RaisedButton
+                    onClick={!isAuthed ? this.handlerClickAuth : this.handlerOpenIconMenu}
+                    label={text}
+                    labelPosition="before"
+                    primary={true}
+                    id="sign">
+                    {isAuthed && <IconMenu
+                        onItemTouchTap={handlerLoginout}
+                        open={this.state.isMenuOpen}
+                        onRequestChange={this.handlerOpenIconMenu}
+                        iconButtonElement={
+                            <IconButton>
+                                <NavigationExpandMoreIcon />
+                            </IconButton>
+                        }
+                    >
+                        <MenuItem primaryText="Logout" />
+                    </IconMenu>
+                    }
+                </RaisedButton>
             </div>
         )
     }
     renderAuthed = () => {
-        const user:any = this.props.user
-        if(user==null){
+        const user: any = this.props.user
+        if (user == null) {
             throw new Error('user cant be null');
         }
-        const {username}=user
+        const { username } = user
         return (
             <AuthSection>
                 <div>My Polls</div>

@@ -1,10 +1,11 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import Cookies from 'js-cookie'
-import {USER_COOKIE} from '../constants/types'
+import { USER_COOKIE } from '../constants/types'
 
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import { User } from "../App";
 
 const Button = (RaisedButton)
 
@@ -14,10 +15,11 @@ const LoginMain = styled.main`
     
 `
 
+
 interface ILoginProps {
     toggleLogin: () => void
     user: undefined | {}
-
+    handleUserStateChange: (user: User) => void
 }
 
 interface ILoginState {
@@ -58,30 +60,28 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
 
         const isLoginUp = this.state.isLoginUp
         // const {username,password} = this.state
-        const {username, password} = this.state
-        const {toggleLogin} = this.props
+        const { username, password } = this.state
+        const { toggleLogin, handleUserStateChange } = this.props
         const headers = new Headers()
 
-        const requestBody = JSON.stringify({username, password})
+        const requestBody = JSON.stringify({ username, password })
 
         headers.append("Content-Type", "application/json");
         headers.append("Content-Length", requestBody.toString().length + "");
         const path = this.state.isLoginUp ? "register" : "login"
-        fetch(`/api/${path}`, {method: "POST", body: requestBody, headers})
-            .then(data =>
-                data.json()
-            )
+        fetch(`/api/${path}`, { method: "POST", body: requestBody, headers })
+            .then(data => data.json())
             .then(json => {
-                if (!json.err) {
+                if (json.err) {
                     throw new Error(json.err)
                 }
-                this.setState({msg: path + " scusses...."})
-                Cookies.set(USER_COOKIE, json)
+                this.setState({ msg: path + " scusses...." })
+                handleUserStateChange(json)
                 setTimeout(() => toggleLogin(), 500)
             }).catch(err => {
-            this.setState({msg: err})
+                this.setState({ msg: err.message })
 
-        })
+            })
         if (isLoginUp) {
 
         } else {
@@ -90,24 +90,27 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
     }
 
     render() {
-        const {username, password, isLoginUp} = this.state
+        const { username, password, isLoginUp } = this.state
 
         return (
-            <LoginMain  >
+            <LoginMain>
+                <h1>{isLoginUp ? '注册' : '登录'}</h1>
                 <form
                     onSubmit={this.handleConfirm}
                     method="POST">
 
                     <TextField
+                        label="Username"
                         onChange={this.handleChange('username')}
-                        hint="username"
+                        hintText="username"
                         value={username}
                         name="username"
-                    /><br/>
+                    /><br />
                     <TextField
                         onChange={this.handleChange('password')}
                         value={password}
-                        hint="password"
+                        label="Password"
+                        hintText="password"
                         name="password"
                     />
 
@@ -115,11 +118,12 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
                         <p>
                             {this.state.msg}
                         </p>
+
                         <Button
-                            primary={true}
-                            label={isLoginUp ? 'Login In' : 'Login Up'}
+                            label={isLoginUp ? '已有帐号?登录' : '注册帐号'}
                             onClick={this.handleChangeLoginMode}>
                         </Button>
+
                         <Button
                             primary={true}
                             type="submit"

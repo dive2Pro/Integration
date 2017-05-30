@@ -25,10 +25,10 @@ class User {
     salt: string
     model: any;
 
-    static getByName(name, fn) {
-        User.getUser(name, (err, user) => {
+    static getByName(username, fn) {
+        UserModel.findOne({username}).exec((err, user:any) => {
             if (err || !user)
-                return fn(`username: ${name} does't  exits`)
+                return fn(`username: ${username} does't  exits`)
             // https://stackoverflow.com/questions/34775687/express-jwt-setting-user-object-to-req-user-doc-instead-of-just-req-user
             fn(null, new User(user.toObject()))
         })

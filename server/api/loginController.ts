@@ -1,10 +1,13 @@
 import {Express, Request, Router} from 'express';
 import * as bodyparser from "body-parser"
 import UserModel from '../models/userModel'
-import * as  session from 'cookie-session'
+import * as  cookieSession from 'cookie-session'
 
 declare interface AppRequest extends Request {
     user: UserModel | null
+    session:{
+        userId:string|null
+    }
 }
 
 
@@ -14,14 +17,13 @@ export default function (app: Express) {
     app.use(bodyparser.json())
     app.use('/api', router);
     const expiryDate = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
-    app.use(session({
+    router.use(cookieSession({
             name: 'session',
             keys: ['userId'],
             cookie: {
-                secure: true,
+                secure: false,
                 httpOnly: true,
-                domain: 'localhost',
-                path: '/',
+
                 expires: expiryDate
             }
         })
@@ -38,7 +40,7 @@ export default function (app: Express) {
 
     router.use(validReqBody);
 
-    router.post('/register', function (req, res) {
+    router.post('/register', function (req:AppRequest, res) {
             if (req.body) {
                 const {username, password} = req.body
                 UserModel.getByName(username, function (err) {
@@ -50,7 +52,7 @@ export default function (app: Express) {
                                 res.status(503)
                                 res.send({err: err2})
                             } else {
-                                res.cookie("id", user._id);
+                                req.session.userId= user._id ;
                                 res.send({
                                     username,
                                     id: user._id
@@ -66,8 +68,7 @@ export default function (app: Express) {
         }
     )
 
-    router.post('/login', function (req, res) {
-
+    router.post('/login', function (req:AppRequest, res) {
         const {username, password} = req.body
         UserModel.authenticate(username, password, function (err, user) {
             if (err) {
@@ -76,7 +77,7 @@ export default function (app: Express) {
                     err
                 })
             } else {
-                res.cookie("id", user._id);
+                req.session.userId= user._id ;
                 res.send(user)
             }
         });
@@ -84,17 +85,20 @@ export default function (app: Express) {
 
     })
 
-    router.post('/logout', function (req: AppRequest, res) {
+    router.get('/logout', function (req: AppRequest, res) {
         const user = req.user
+
         if (user) {
             req.user = null
-            req.clearCookie("id")
+            req.session.userId=null
         }
         res.send({code: 200, msg: "login out success"})
 
     })
 
-    router.get('/', (req, res) => {
+    router.get('/', (req:AppRequest, res) => {
+        console.log(req.session)
+
         UserModel.getByName('hyc', function (err) {
             console.log(err)
             res.send('')
