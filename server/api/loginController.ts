@@ -1,9 +1,8 @@
 import {Express, Request, Router} from 'express';
-import * as bodyparser from "body-parser"
 import UserModel from '../models/userModel'
 import * as  cookieSession from 'cookie-session'
 
-declare interface AppRequest extends Request {
+export declare interface AppRequest extends Request {
     user: UserModel | null
     session:{
         userId:string|null
@@ -13,8 +12,6 @@ declare interface AppRequest extends Request {
 
 export default function (app: Express) {
     const router = Router()
-    app.use(bodyparser.urlencoded({extended: false}))
-    app.use(bodyparser.json())
     app.use('/api', router);
     const expiryDate = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
     router.use(cookieSession({
@@ -26,9 +23,7 @@ export default function (app: Express) {
 
                 expires: expiryDate
             }
-        })
-    );
-
+        }));
     // middleware to catch the req.body ==null
     function validReqBody(req, res, next) {
         if (!!req.body===false) {
@@ -37,9 +32,7 @@ export default function (app: Express) {
             next()
         }
     }
-
     router.use(validReqBody);
-
     router.post('/register', function (req:AppRequest, res) {
             if (req.body) {
                 const {username, password} = req.body
@@ -67,7 +60,6 @@ export default function (app: Express) {
             }
         }
     )
-
     router.post('/login', function (req:AppRequest, res) {
         const {username, password} = req.body
         UserModel.authenticate(username, password, function (err, user) {
@@ -81,8 +73,6 @@ export default function (app: Express) {
                 res.send(user)
             }
         });
-
-
     })
 
     router.get('/logout', function (req: AppRequest, res) {
