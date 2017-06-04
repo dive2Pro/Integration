@@ -110,7 +110,7 @@ class App extends React.Component<{}, IAppState> {
 
                 <main>
                     <button onClick={() => {
-                        fetch("/api/poll/all", {
+                        fetch("/fail", {
                             credentials: "include"
                         }
                         ).then(data => data.json())

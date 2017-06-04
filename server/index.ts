@@ -8,7 +8,7 @@ import * as expressSession from 'express-session'
 import * as cookieParser from 'cookie-parser'
 import{cookieSecret} from './credentials'
 import * as morgan from 'morgan'
-export default function(app: Express) {
+export default function(app: Express, server) {
   const db = mongoose.connection;
   (<any>mongoose).Promise = global.Promise;
   // console.log(db.model('User').model)
@@ -19,7 +19,6 @@ export default function(app: Express) {
     console.log(db.config)
   })
   mongoose.connect(db_url);
-
   app.use(morgan())
   app.use(userMiddleware)
   app.use(cookieParser(cookieSecret))
@@ -32,4 +31,8 @@ export default function(app: Express) {
     next()
   })
   api(app)
+  app.use(function(err, req, res, next) {
+    console.error(err.stack)
+    res.status(500).send('Internel error')
+  })
 }

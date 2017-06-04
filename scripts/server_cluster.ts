@@ -1,11 +1,13 @@
 import * as cluster from 'cluster'
 
 function startWorker() {
+  // fork
   const woker = cluster.fork()
   console.log(`CLUSTER: Worker ${woker.id} started`);
 }
 
 if (cluster.isMaster) {
+  // 为每个 cpu 启动了一个工作线程
   require('os').cpus().forEach(element => {startWorker()});
 
   // 记录所有断开的工作线程.
