@@ -23,7 +23,7 @@ export default () => {
           };
           server.close();
           try {
-            // throw new Error('hahahah');
+            // 交由 Express 错误路由处理
             next(err)
           } catch (err) {
             // 如果 Express 错误路由失效, 尝试返回普通文本响应

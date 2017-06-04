@@ -4,9 +4,10 @@ import Header from './Header'
 import Login from './Login'
 import { USER_COOKIE } from "./constants/types";
 import * as Cookies from 'js-cookie'
-
+import VoteCreate from './VoteCreate'
+import Votes from './Votes'
 import Dialog from 'material-ui/Dialog';
-
+import { SECTION_CENTER } from './styled'
 export class User {
     username: string
     id: string
@@ -36,9 +37,10 @@ class App extends React.Component<{}, IAppState> {
 
     state = {
         toggle: {
-            islogin_open: false
+            islogin_open: false,
+            isCreating_newpoll: true
         },
-        user: undefined
+        user: undefined,
     }
 
     componentWillMount() {
@@ -83,8 +85,18 @@ class App extends React.Component<{}, IAppState> {
                 throw new Error(err)
             })
     }
-    render() {
+    handleShowPollAction = (position) => {
 
+        if (position === 'left') {
+            this.setState(prev => ({ toggle: { ...prev.toggle, isCreating_newpoll: true } }))
+        } else {
+            this.setState(prev => ({ toggle: { ...prev.toggle, isCreating_newpoll: false } }))
+
+        }
+    }
+    render() {
+        const { toggle: { isCreating_newpoll } } = this.state
+        const ShowPollView = isCreating_newpoll ? VoteCreate : Votes;
         return (
             <div className="App">
                 <div className="App-header">
@@ -107,17 +119,18 @@ class App extends React.Component<{}, IAppState> {
 
                     />
                 </Dialog>
-
                 <main>
-                    <button onClick={() => {
-                        fetch("/fail", {
-                            credentials: "include"
-                        }
-                        ).then(data => data.json())
-                            .then(json => {
-                                console.log(json)
-                            })
-                    }}>Test</button>
+                    <SECTION_CENTER>
+                        <h1>
+                            Dashboard
+                        </h1>
+                        <h3>What would you like to do today?</h3>
+                        <div>
+                            <button onClick={() => this.handleShowPollAction('left')}>New Poll</button>
+                            <button onClick={() => this.handleShowPollAction('right')}>My Polls</button>
+                        </div>
+                    </SECTION_CENTER>
+                    <ShowPollView></ShowPollView>
                 </main>
             </div>
         );

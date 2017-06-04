@@ -69,27 +69,27 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
         const isAuthed = !!user
 
         return (
-            <div>
+            <div style={{ display: 'flex' }}>
                 <RaisedButton
                     onClick={!isAuthed ? this.handlerClickAuth : this.handlerOpenIconMenu}
                     label={text}
                     labelPosition="before"
                     primary={true}
                     id="sign">
-                    {isAuthed && <IconMenu
-                        onItemTouchTap={handlerLoginout}
-                        open={this.state.isMenuOpen}
-                        onRequestChange={this.handlerOpenIconMenu}
-                        iconButtonElement={
-                            <IconButton>
-                                <NavigationExpandMoreIcon />
-                            </IconButton>
-                        }
-                    >
-                        <MenuItem primaryText="Logout" />
-                    </IconMenu>
-                    }
                 </RaisedButton>
+                {isAuthed && <IconMenu
+                    onItemTouchTap={handlerLoginout}
+                    open={this.state.isMenuOpen}
+                    onRequestChange={this.handlerOpenIconMenu}
+                    iconButtonElement={
+                        <IconButton>
+                            <NavigationExpandMoreIcon />
+                        </IconButton>
+                    }
+                >
+                    <MenuItem primaryText="Logout" />
+                </IconMenu>
+                }
             </div>
         )
     }
