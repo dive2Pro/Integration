@@ -4,8 +4,6 @@ import server from '../server'
 
 const app = express()
 
-
-
 app.use(express.static(path.join(__dirname, 'build')));
 
 app.use(function(req, res, next) {
@@ -24,4 +22,12 @@ app.get('/', function(req, res) {
 server(app);
 
 const port = process.env.PORT || 2828
-app.listen(port, 'localhost', () => {console.log('Listening port : ' + port)})
+function startServer() {
+  app.listen(port, 'localhost', () => {console.log('Listening port : ' + port)})
+}
+
+if (require.main === module) {
+  startServer()
+} else {
+  module.exports = startServer
+}
